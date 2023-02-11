@@ -21,26 +21,11 @@ import {
 import {
     styles,
 } from './styles';
+import {
+    valueProps,
+} from './types';
 
-type valueProps = {
-  value: number;
-};
-
-export const ProgressBar = ({ value }: valueProps) => {
-  const widthContainer = useSharedValue(200);
-
-  const endReached = value >= 95;
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      width: widthContainer.value,
-    };
-  });
-
-  useEffect(() => {
-    widthContainer.value = withSpring(endReached ? 56 : 200, { mass: 0.4 });
-  }, [value]);
-
+export const Layout = ({ value, animatedStyle, endReached }: valueProps) => {
   return (
     <Animated.View style={[styles.container, animatedStyle]}>
       {endReached ? (
